@@ -40,6 +40,8 @@ paths:
       responses:
         '201':
           description: Processo de portabilidade criado com sucesso
+        '400':
+          description: Erro ao preencher os campos obrigatórios da request
 
   /portability/{portabilityId}:
     put:
@@ -66,18 +68,26 @@ paths:
       responses:
         '200':
           description: Status da portabilidade atualizado com sucesso
+        '404':
+          description: Portabilidade não encontrada
 
 definitions:
   InputPortability:
     type: object
+    required:
+      - portability
+      - user
     properties:
       portability:
         $ref: '#/definitions/PortabilityResume'
       user:
-        $ref: '#/definitions/User'
+        $ref: '#/definitions/UserResume'
 
   PortabilityResume:
     type: object
+    required:
+      - source
+      - target
     properties:
       source:
         type: string
@@ -96,13 +106,19 @@ definitions:
           - TIM
           - OI
           
-  User:
+  UserResume:
     type: object
+    required:
+      - line
+      - address
+      - name
+      - dateOfBirth
+      - documentNumber
     properties:
       line:
-        $ref: '#/definitions/LineInformation'
+        $ref: '#/definitions/LineInformationResume'
       address:
-        $ref: '#/definitions/Address'
+        $ref: '#/definitions/AddressResume'
       name:
         type: string
         format: int64
@@ -114,14 +130,22 @@ definitions:
         type: string
         format: int64
   
-  LineInformation:
+  LineInformationResume:
     type: object
+    required:
+      - number
     properties:
       number:
         type: string
   
-  Address:
+  AddressResume:
     type: object
+    required:
+      - street
+      - number
+      - city
+      - country
+      - stateOrRegion
     properties:
       street:
         type: string
@@ -136,8 +160,11 @@ definitions:
         
   InputPutStatus:
     type: object
+    required:
+      - status
     properties:
       status:
+        type: string
         enum:
           - PORTED
           - UNPORTED
