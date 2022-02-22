@@ -14,7 +14,7 @@ host: ms-src-portability
 basePath: /v1
 tags:
   - name: portability
-    description: Gerencia os processos de potabilidade
+    description: Gerencia os processos de portabilidade
     
 schemes:
   - https
@@ -93,14 +93,9 @@ definitions:
         type: string
         enum:
           - VIVO
-          - CLARO
-          - NEXTEL
-          - TIM
-          - OI
       target:
         type: string
         enum:
-          - VIVO
           - CLARO
           - NEXTEL
           - TIM
